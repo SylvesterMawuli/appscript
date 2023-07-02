@@ -1,0 +1,51 @@
+function webhook() {
+  
+  const url = "https://chat.googleapis.com/v1/spaces/AAAAdoadlss/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=a2_eWpQRGfd_opx_YYx7gsJKjPjhVyTJ277w6Sw3h7Y%3D";
+  const options = {
+    "method": "post",
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8"
+    },
+    "payload": JSON.stringify({
+        "cards": [{
+            "header": {
+                "title": "Trends Dashboard",
+                "imageUrl": "https://is3-ssl.mzstatic.com/image/thumb/Purple112/v4/25/89/fc/2589fc69-381d-322e-8cc6-84d891ff756b/AppIcon-1x_U007emarketing-0-10-0-0-85-220.png/512x512bb.jpg",
+                "imageStyle": "IMAGE"
+            },
+            "sections": [{
+                "widgets": [{
+                        "textParagraph": {
+                            "text": "Daily Trends Update: " + new Date().toDateString(),
+                        }
+                    },
+                    {
+                        "buttons": [{
+                            "textButton": {
+                                "text": "OPEN DASHBOARD",
+                                "onClick": {
+                                    "openLink": {
+                                        "url": "https://zuberipay.cloud.looker.com/dashboards/2?Date=7+month"
+                                    }
+                                }
+                            }
+                        }]
+                    },
+                ]
+            }]
+        }]
+    })
+  };
+    const response = UrlFetchApp.fetch(url, options);
+  Logger.log(response);
+}
+function runif(){
+  var thread = GmailApp.getInboxThreads(0,1)[0]; // Get first thread in inbox
+var message = thread.getMessages()[0]; // Get first message
+Logger.log(message.getSubject()); // Log subject line
+Logger.log("is unread? " + message.isUnread());
+  if( message.getSubject() == 'there is God ooo' && message.isUnread() ) {
+    webhook()
+}
+message.markRead(); // Mark as read
+}
